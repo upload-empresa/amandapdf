@@ -34,11 +34,11 @@ const App = () => {
     const exportExcelFile = () => {
         const workbook = new ExcelJS.Workbook();
         const sheet = workbook.addWorksheet("My Sheet");
-        sheet.properties.defaultRowHeight = 80;
+        sheet.properties.defaultRowHeight = 40;
 
         // Add a new row for the title
         const titleRow = sheet.addRow([]);
-        titleRow.getCell(1).value = "Your Title Here"; // Set your desired title here
+        titleRow.getCell(1).value = "AVALIAÇÃO ERGONÔMICA PRELIMINAR - NR-17 ";
         titleRow.getCell(1).alignment = { horizontal: "center" };
         titleRow.getCell(1).font = {
             name: "Calibri",
@@ -50,9 +50,10 @@ const App = () => {
         titleRow.getCell(1).fill = {
             type: "pattern",
             pattern: "solid",
-            fgColor: { argb: "FFFF0000" }
+            fgColor: { argb: "1F3864" }
         };
-        sheet.mergeCells("A2:G1"); // Merge cells across all columns for the title row
+        sheet.mergeCells("A2:G1");
+        sheet.getRow(1).height = 10;
 
         sheet.columns = [
             {
@@ -82,9 +83,9 @@ const App = () => {
                 width: 10,
             },
             {
-                header: "Photo",
+                header: "AVALIAÇÃO ERGONÔMICA PRELIMINAR - NR-17 ",
                 key: "thumbnail",
-                width: 30,
+                width: 15,
             },
         ];
 
@@ -100,6 +101,9 @@ const App = () => {
                     rating: product?.rating,
                 });
                 // Add image if needed
+                // if (product?.title === "AVALIAÇÃO ERGONÔMICA PRELIMINAR - NR-17") {
+                //     sheet.getRow(rowNumber).height = 20; // Set desired height
+                // }
             })
         );
 
