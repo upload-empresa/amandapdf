@@ -1,6 +1,6 @@
-import pdfMake from 'pdfmake/build/pdfmake'
-import pdfFonts from 'pdfmake/build/vfs_fonts'
-import { TDocumentDefinitions, Content, ContentColumns, ContentStack } from 'pdfmake/interfaces'
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+import { TDocumentDefinitions, Content, ContentColumns, ContentStack } from 'pdfmake/interfaces';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -8,12 +8,9 @@ function createHeader(): ContentColumns {
     return {
         columns: [
             {
-                image: 'left_image.png',
-                width: 100,
-                alignment: 'left'
-            },
-            {
-                text: 'ERG-AEP-COLORADO-0001-23',
+                text: {
+                    text: 'ERG-AEP-COLORADO-0001-23', // Wrap the string in an object
+                },
                 alignment: 'right',
                 margin: [0, 10, 0, 0]
             }
@@ -21,7 +18,6 @@ function createHeader(): ContentColumns {
         margin: [40, 40, 40, 0]
     };
 }
-
 function createFooter(currentPage: number, pageCount: number): ContentStack {
     return {
         stack: [
@@ -49,7 +45,7 @@ function generatePDFContent(): Content[] {
     return content;
 }
 
-async function generatePDF() {
+export async function generatePDF() {
     const docDefinition: TDocumentDefinitions = {
         content: generatePDFContent(),
         defaultStyle: { font: 'Helvetica' }
@@ -57,5 +53,3 @@ async function generatePDF() {
 
     pdfMake.createPdf(docDefinition).download('documento.pdf');
 }
-
-generatePDF();
