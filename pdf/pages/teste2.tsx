@@ -36,30 +36,32 @@ const App = () => {
         const sheet = workbook.addWorksheet("My Sheet");
         sheet.properties.defaultRowHeight = 40;
 
+
+
         // Add a new row for the title
-        const titleRow = sheet.addRow([]);
-        titleRow.getCell(1).value = "AVALIAÇÃO ERGONÔMICA PRELIMINAR - NR-17 ";
-        titleRow.getCell(1).alignment = { horizontal: "center" };
-        titleRow.getCell(1).font = {
-            name: "Calibri",
-            family: 4,
-            size: 14,
-            bold: true,
-            color: { argb: "FFFFFF" }
-        };
-        titleRow.getCell(1).fill = {
-            type: "pattern",
-            pattern: "solid",
-            fgColor: { argb: "1F3864" }
-        };
-        sheet.mergeCells("A2:G1");
-        sheet.getRow(1).height = 10;
+        // const titleRow = sheet.addRow([]);
+        // titleRow.getCell(1).value = "AVALIAÇÃO ERGONÔMICA PRELIMINAR - NR-17 ";
+        // titleRow.getCell(1).alignment = { horizontal: "center" };
+        // titleRow.getCell(1).font = {
+        //     name: "Calibri",
+        //     family: 4,
+        //     size: 14,
+        //     bold: true,
+        //     color: { argb: "FFFFFF" }
+        // };
+        // titleRow.getCell(1).fill = {
+        //     type: "pattern",
+        //     pattern: "solid",
+        //     fgColor: { argb: "1F3864" }
+        // };
+        // sheet.mergeCells("A2:G2");
+        // sheet.getRow(2).height = 30;
 
         sheet.columns = [
             {
                 header: "Id",
                 key: "id",
-                width: 10,
+                width: 20,
             },
             { header: "Title", key: "title", width: 32 },
             {
@@ -82,16 +84,38 @@ const App = () => {
                 key: "rating",
                 width: 10,
             },
-            {
-                header: "AVALIAÇÃO ERGONÔMICA PRELIMINAR - NR-17 ",
-                key: "thumbnail",
-                width: 15,
-            },
+
         ];
+
+        // Add a blank row
+        const title = sheet.addRow({ id: "AVALIAÇÃO ERGONÔMICA PRELIMINAR - NR-17 " });
+        title.alignment = { horizontal: "center" };
+        title.font = {
+            name: "Calibri",
+            family: 4,
+            size: 14,
+            bold: true,
+            color: { argb: "FFFFFF" }
+        };
+        // title.fill = {
+        //     type: "pattern",
+        //     pattern: "solid",
+        //     fgColor: { argb: "1F3864" }
+        // };
+        sheet.mergeCells("A2:G2");
+        sheet.getCell("A2").fill = {
+            type: "pattern",
+            pattern: "solid",
+            fgColor: { argb: "1F3864" }
+        }
+
+
+
+
 
         const promise = Promise.all(
             data?.products?.map(async (product, index) => {
-                const rowNumber = index + 2; // Start from the second row after the title
+                const rowNumber = index + 3; // Start from the third row after the blank row and title row
                 sheet.addRow({
                     id: product?.id,
                     title: product?.title,
