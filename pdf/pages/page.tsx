@@ -48,7 +48,7 @@ function generatePDFContent(): Content[] {
 export async function generatePDF() {
     const docDefinition: TDocumentDefinitions = {
         content: generatePDFContent(),
-        defaultStyle: { font: 'Helvetica' }
+        // defaultStyle: { font: 'Helvetica' }
     };
 
     pdfMake.createPdf(docDefinition).download('documento.pdf');
